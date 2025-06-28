@@ -2,13 +2,33 @@ package com.clone.DTOs;
 
 public class LikeDto {
 
-    String likes;
-
-	public String getLikes() {
-		return likes;
+    public LikeDto(String likeId, String postAssociatedWithLike, String userAssociatedWithLike) {
+		super();
+		this.likeId = likeId;
+		this.postAssociatedWithLike = postAssociatedWithLike;
+		this.userAssociatedWithLike = userAssociatedWithLike;
 	}
-
-	public void setLikes(String likes) {
-		this.likes = likes;
+	String likeId;
+    String postAssociatedWithLike;
+    String userAssociatedWithLike;
+    
+    public String getLikeId() {
+		return likeId;
 	}
+	public void setLikeId(String likeId) {
+		this.likeId = likeId;
+	}
+	public String getPostAssociatedWithLike() {
+		return postAssociatedWithLike;
+	}
+	public void setPostAssociatedWithLike(String postAssociatedWithLike) {
+		this.postAssociatedWithLike = postAssociatedWithLike;
+	}
+	public String getUserAssociatedWithLike() {
+		return userAssociatedWithLike;
+	}
+	public void setUserAssociatedWithLike(String userAssociatedWithLike) {
+		this.userAssociatedWithLike = userAssociatedWithLike;
+	}
+	
 }

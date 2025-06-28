@@ -2,13 +2,42 @@ package com.clone.DTOs;
 
 public class CommentDto {
 
-    String comment;
-
-	public String getComment() {
-		return comment;
+    String commentId;
+    String postAssociatedWithComment;
+    String userAssociatedWithComment;
+    String commentContent;
+    
+    public String getCommentContent() {
+		return commentContent;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
 	}
+
+	public String getPostAssociatedWithComment() {
+		return postAssociatedWithComment;
+	}
+
+	public void setPostAssociatedWithComment(String postAssociatedWithComment) {
+		this.postAssociatedWithComment = postAssociatedWithComment;
+	}
+
+	public String getUserAssociatedWithComment() {
+		return userAssociatedWithComment;
+	}
+
+	public void setUserAssociatedWithComment(String userAssociatedWithComment) {
+		this.userAssociatedWithComment = userAssociatedWithComment;
+	}
+
+	public String getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(String commentId) {
+		this.commentId = commentId;
+	}
+
+	
 }

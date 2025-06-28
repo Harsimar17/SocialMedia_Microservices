@@ -37,43 +37,36 @@ public class PostController {
     @PostMapping("/user/{uid}/category/{cid}")
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDetails, @PathVariable("uid") int userId,
             @PathVariable("cid") int categoryId) throws Exception {
-        PostDto np = postService.createPost(postDetails, userId, categoryId);
-        return new ResponseEntity<PostDto>(np, HttpStatus.CREATED);
+        return new ResponseEntity<PostDto>(postService.createPost(postDetails, userId, categoryId), HttpStatus.CREATED);
     }
 
-    @GetMapping("/user/{uid}/posts")
-    public ResponseEntity<List<PostDto>> getPostByUser(@PathVariable int uid) {
-        List<PostDto> li = postService.getAllPostByUser(uid);
-        return new ResponseEntity<List<PostDto>>(li, HttpStatus.OK);
+    @GetMapping("/getUserPosts/{userId}")
+    public ResponseEntity<List<PostDto>> getPostByUser(@PathVariable("userId") int userId) {
+        return new ResponseEntity<List<PostDto>>(postService.getAllPostByUser(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/category/{cid}/posts")
+    @GetMapping("/getPostByCategory/{cid}")
     public ResponseEntity<List<PostDto>> getPostByCategory(@PathVariable int cid) {
-        List<PostDto> li = postService.getPostByCategory(cid);
-        return new ResponseEntity<List<PostDto>>(li, HttpStatus.OK);
+        return new ResponseEntity<List<PostDto>>(postService.getPostByCategory(cid), HttpStatus.OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/getAllPosts")
     public ResponseEntity<List<PostDto>> getAllPost() {
-    	List<PostDto> allPosts = this.postService.getAllPost();
-        return new ResponseEntity<List<PostDto>>(allPosts, HttpStatus.OK);
-
+        return new ResponseEntity<List<PostDto>>(postService.getAllPost(), HttpStatus.OK);
     }
 
-    @GetMapping("/post/{pid}")
+    @GetMapping("/getSpecificPost/{pid}")
     public ResponseEntity<PostDto> getPostbyId(@PathVariable("pid") int pid) {
-        PostDto p = postService.getPost(pid);
-        return new ResponseEntity<PostDto>(p, HttpStatus.OK);
+        return new ResponseEntity<PostDto>(postService.getPost(pid), HttpStatus.OK);
     }
 
     @PutMapping("/updatePost/{pid}")
-    public ResponseEntity<PostDto> updatePostById(@RequestBody PostDto pd, @PathVariable int pid) {
-        PostDto np = postService.updatePost(pd, pid);
-        return new ResponseEntity<PostDto>(np, HttpStatus.OK);
+    public ResponseEntity<PostDto> updatePostById(@RequestBody PostDto pd, @PathVariable("pid") int pid) {
+        return new ResponseEntity<PostDto>( postService.updatePost(pd, pid), HttpStatus.OK);
     }
 
-    @DeleteMapping("/post/{pid}")
-    public void deletePostById(@PathVariable int pid) throws IOException {
+    @DeleteMapping("/deletePost/{pid}")
+    public void deletePostById(@PathVariable("pid") int pid) throws IOException {
         postService.deletePost(pid);
     }
 

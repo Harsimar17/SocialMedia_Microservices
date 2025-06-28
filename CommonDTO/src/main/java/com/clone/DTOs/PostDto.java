@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class PostDto {
-	int id;
+	
+	@JsonIgnore
+	int postId;
 	String title;
 	String content;
 	String imagename;
@@ -16,12 +20,12 @@ public class PostDto {
 	List<LikeDto> likes = new ArrayList<>();
 	List<CommentDto> comments = new ArrayList<>();
 
-	public int getId() {
-		return id;
+	public int getPostId() {
+		return postId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setPostId(int postId) {
+		this.postId = postId;
 	}
 
 	public String getTitle() {
