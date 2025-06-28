@@ -1,0 +1,25 @@
+plugins {
+	id 'java'
+}
+
+group = 'com.clone.DTOs'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation project(":CommonDTO")
+	implementation("org.springframework:spring-web:6.1.21")
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
