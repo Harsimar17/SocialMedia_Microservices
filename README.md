@@ -79,6 +79,7 @@ The Social Media App is a microservice-based backend platform that mimics the fu
 - Integrate centralized logging (ELK or Loki stack)
 - Implement rate-limiting, circuit breakers (Resilience4j)
 - Deploy to cloud (AWS) or Kubernetes
+- Introduce caching mechanism say redis or ehcache in get request
 
 ---
 
