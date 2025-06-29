@@ -1,11 +1,12 @@
 package com.serviceclient.services;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import com.serviceclient.services.constants.Constants;
 import com.socialmediaapp.required.UserDto;
 
-public class UserService 
+public class UserService
 {
 	public UserDto getUserByEmail(String email) 
 	{
@@ -14,8 +15,8 @@ public class UserService
 		try 
 		{
 			String url = Constants.BASE_URL_FOR_USER_SERVICE + "getByEmail/" + email;
-
-			return restTemplate.getForObject(url, UserDto.class);
+			
+			return restTemplate.exchange(url, HttpMethod.GET, HeaderUtil.getHeaders(), UserDto.class).getBody();
 		}
 		catch (Exception e)
 		{
@@ -30,7 +31,7 @@ public class UserService
 		{
 			String url = Constants.BASE_URL_FOR_USER_SERVICE + "getUserById/" + userId;
 
-			return restTemplate.getForObject(url, UserDto.class);
+			return restTemplate.exchange(url, HttpMethod.GET, HeaderUtil.getHeaders(), UserDto.class).getBody();
 		}
 		catch (Exception e)
 		{
@@ -49,7 +50,7 @@ public class UserService
 		{
 			String url = Constants.BASE_URL_FOR_USER_SERVICE + "getByEmailAndPassword/" + username + "/" + password;
 
-			userDto =  restTemplate.getForObject(url, UserDto.class);
+			userDto =  restTemplate.exchange(url, HttpMethod.GET, HeaderUtil.getHeaders(),UserDto.class).getBody();
 		}
 		catch (Exception e)
 		{

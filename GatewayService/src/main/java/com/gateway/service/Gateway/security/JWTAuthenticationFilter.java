@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import com.socialmediaapp.required.JWTThings.JWTTokenHelper;
+import com.socialmediaapp.required.JWTThings.RouteValidator;
 
 
 @Component

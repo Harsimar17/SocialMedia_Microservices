@@ -1,4 +1,4 @@
-package com.gateway.service.Gateway.security;
+package com.socialmediaapp.required.JWTThings;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -18,5 +18,4 @@ public class RouteValidator {
 	            request -> openApiEndpoints
 	                    .stream()
 	                    .noneMatch(uri -> request.getURI().getPath().contains(uri));
-
 }

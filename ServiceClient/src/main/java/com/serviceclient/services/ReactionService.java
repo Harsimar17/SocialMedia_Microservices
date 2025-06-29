@@ -19,9 +19,12 @@ public class ReactionService {
 		{
 			String url = Constants.BASE_URL_FOR_REACTION_SERVICE + "getLikes/" + postId;
 			
-			ResponseEntity<List<LikeDto>> response = restTemplate.exchange(url, HttpMethod.GET, null,
-					new ParameterizedTypeReference<List<LikeDto>>() {
-					});
+			 ResponseEntity<List<LikeDto>> response = restTemplate.exchange(
+			            url,
+			            HttpMethod.GET,
+			            HeaderUtil.getHeaders(),
+			            new ParameterizedTypeReference<List<LikeDto>>() {}
+			        );
 
 			List<LikeDto> likes = response.getBody();
 
