@@ -35,13 +35,14 @@ The Social Media App is a microservice-based backend platform that mimics the fu
 
 ## 🧱 Microservice Overview
 
-| **Microservice**     | **Role / Responsibilities**                                  | **Base URL**                                                  |
-|----------------------|--------------------------------------------------------------|---------------------------------------------------------------|
-| **User Service**     | User creation, login, profile retrieval and management       | `http://localhost:7070/user-service`                          |
-| **Post Service**     | Manage posts and categories                                  | `http://localhost:7070/post-service`                          |
-| **Reaction Service** | Handles likes and comments on posts                          | `http://localhost:7070/reaction-service`                      |
-| **API Gateway**      | Central entry point, handles routing and JWT authentication  | `http://localhost:7070`                                       |
-| **Eureka Server**    | Service discovery; monitors registration and availability    | `http://localhost:8761`(UI to see status of services)         |
+| **Microservice**              | **Role / Responsibilities**                                  | **Base URL**                                                  |
+|-------------------------------|--------------------------------------------------------------|---------------------------------------------------------------|
+| **UserService**               | User creation, login, profile retrieval and management       | `http://localhost:7070/user-service`                          |
+| **PostService**               | Manage posts and categories                                  | `http://localhost:7070/post-service`                          |
+| **ReactionService**           | Handles likes and comments on posts                          | `http://localhost:7070/reaction-service`                      |
+| **GatewayService**            | Central entry point, handles routing and JWT authentication  | `http://localhost:7070`                                       |
+| **SocialMediaAppRegistry**    | Service discovery; monitors registration and availability    | `http://localhost:8761`(UI to see status of services)         |
+| **ServiceClient**             | Responsible for inter-commmunication of microservices        |                                                               |
 
 > ⚠️ All internal services (except login and sign up endpoints) are protected via JWT and routed through the API Gateway.
 
