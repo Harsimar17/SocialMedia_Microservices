@@ -1,4 +1,4 @@
-package com.clone.DTOs;
+package com.socialmediaapp.required;
 
 import java.util.ArrayList;
 import java.util.Date;

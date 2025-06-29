@@ -1,35 +1,23 @@
 
-package com.auth.service.AuthenticationService.security;
+package com.socialmediaapp.required.JWTThings;
 
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
 import javax.crypto.SecretKey;
-
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
-import com.clone.DTOs.UserDto;
-
+import com.socialmediaapp.required.UserDto;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-@Component
 public class JWTTokenHelper {
 
-	public static final String SECRET = "5367566859703373367639792F423F452848284D6251655468576D5A71347437";
-
-    public String generateToken(String email) { // Use email as username
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, email);
-    }
+//	public static final String SECRET = "5367566859703373367639792F423F452848284D6251655468576D5A71347437";
 
     private String createToken(Map<String, Object> claims, String email) {
         return Jwts.builder()
@@ -39,12 +27,6 @@ public class JWTTokenHelper {
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
-    }
-
-    private Key getSignKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET);
-         SecretKey hmacShaKeyFor = Keys.hmacShaKeyFor(keyBytes);
-         return hmacShaKeyFor;
     }
 
     public String extractUsername(String token) {
@@ -72,8 +54,24 @@ public class JWTTokenHelper {
         return extractExpiration(token).before(new Date());
     }
 
-    public Boolean validateToken(String token, UserDto userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getEmail()) && !isTokenExpired(token));
+    public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+
+
+    @SuppressWarnings("deprecation")
+	public void validateToken(final String token) {
+        Jws<Claims> jwt = Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+        Claims claims = jwt.getBody();
+        String username = claims.getSubject();
+        System.out.println(username);
+    }
+
+    private Key getSignKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+    
+    public String generateToken(String userName) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, userName);
     }
 }

@@ -1,4 +1,4 @@
-package com.clone.DTOs;
+package com.socialmediaapp.required;
 
 public class JwtAuthRequest {
 
