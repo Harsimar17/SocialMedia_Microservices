@@ -48,29 +48,6 @@ The Social Media App is a microservice-based backend platform that mimics the fu
 
 ---
 
-## 🗂 Sample Endpoints
-
-### 🧑 User Service
-
-- `POST /user-service/register` — Register a new user  
-- `POST /user-service/login` — Authenticate and receive a JWT  
-- `GET /user-service/users/{id}` — Get user profile by ID
-
-### 📝 Post Service
-
-- `GET /post-service/posts` — Get all posts  
-- `POST /post-service/posts` — Create a new post  
-- `GET /post-service/users/{id}/posts` — Posts by user  
-- `GET /post-service/category/{id}/posts` — Posts by category
-
-### ❤️ Reaction Service
-
-- `POST /reaction-service/likes` — Like a post  
-- `GET /reaction-service/likes/{postId}` — Get likes for post  
-- `POST /reaction-service/comments` — Comment on post  
-- `GET /reaction-service/comments/{postId}` — Get comments for post
-
-
 ## 🔮 Future Enhancements
 
 - Add Swagger for all services
