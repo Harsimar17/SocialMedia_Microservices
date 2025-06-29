@@ -1,0 +1,33 @@
+spring:
+ cloud:
+   gateway:
+     routes:
+       - id: PostService
+         uri: http://localhost:7072
+         predicates:
+           - Path=/post-service/**
+         filters:
+           - JWTAuthenticationFilter
+
+
+       - id: UserService
+         uri: http://localhost:7071
+         predicates:
+           - Path=/user-service/**
+         filters:
+           - JWTAuthenticationFilter
+
+
+       - id: ReactionService
+         uri: lb://REACTION-SERVICE
+         predicates:
+           - Path=/reaction-service/*
+         filters:
+           - JWTAuthenticationFilter
+ application:
+   name: SOCIAL-MEDIA-BACKEND
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
