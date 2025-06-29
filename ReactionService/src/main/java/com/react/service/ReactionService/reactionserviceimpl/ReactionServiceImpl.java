@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.clone.DTOs.CommentDto;
-import com.clone.DTOs.LikeDto;
-import com.clone.DTOs.PostDto;
 import com.react.service.ReactionService.reactionservice.ReactionService_IF;
 import com.serviceclient.services.PostService;
+import com.socialmediaapp.required.CommentDto;
+import com.socialmediaapp.required.LikeDto;
+import com.socialmediaapp.required.PostDto;
 
 @Service
 public class ReactionServiceImpl implements ReactionService_IF{
@@ -56,16 +56,20 @@ public class ReactionServiceImpl implements ReactionService_IF{
 	}
 
 	@Override
-	public String getLikesOfPost(String postId) 
+	public List<LikeDto> getLikesOfPost(String postId) 
 	{
 		List<LikeDto> likesOfPost = null;
 		
 		try 
 		{
-			PostService postService = new PostService();
-			PostDto post = postService.getPostByPostId(postId);
+			 String sql = "SELECT * FROM `post_likes` WHERE pid = ?";
+				likesOfPost = jdbcTemplate.query(sql, new Object[] { postId }, (rs, rowNum) -> {
+					LikeDto like = new LikeDto();
+					like.setUserAssociatedWithLike(rs.getString("uid"));
+					like.setPostAssociatedWithLike(rs.getString("pid"));
+					return like;
+				});
 			
-			likesOfPost = post.getLikes();
 		}
 		catch (Exception e)
 		{
@@ -74,7 +78,7 @@ public class ReactionServiceImpl implements ReactionService_IF{
 		
 		if(likesOfPost != null) 
 		{
-			return String.valueOf(likesOfPost.size());
+			return likesOfPost;
 		}
 		
 		return null;

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.clone.DTOs.UserDto;
+import com.socialmediaapp.required.UserDto;
 import com.user.service.UserService.DAO.UserServiceDAO;
 import com.user.service.UserService.services.UserService_IF;
 

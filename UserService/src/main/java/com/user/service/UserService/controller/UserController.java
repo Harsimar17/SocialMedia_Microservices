@@ -2,7 +2,6 @@ package com.user.service.UserService.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.clone.DTOs.UserDto;
+
+import com.socialmediaapp.required.JwtAuthRequest;
+import com.socialmediaapp.required.JwtAuthResponse;
+import com.socialmediaapp.required.UserDto;
+import com.socialmediaapp.required.JWTThings.JWTTokenHelper;
 import com.user.service.UserService.services.UserService_IF;
 
 @CrossOrigin
@@ -26,7 +29,22 @@ public class UserController
     @Autowired
     UserService_IF userService;
     
-    @PostMapping("/")
+    @PostMapping("/generateToken")
+    public ResponseEntity<JwtAuthResponse> createToken(@RequestBody JwtAuthRequest jwtAuthRequest) throws Exception 
+    {
+    	userService.authenticate(jwtAuthRequest.getUsername(), jwtAuthRequest.getPassword());
+    	JWTTokenHelper tokenHelper = new JWTTokenHelper();
+        UserDto user = userService.getUserByEmail(jwtAuthRequest.getUsername());
+        String token = tokenHelper.generateToken(user.getEmail());
+        
+        JwtAuthResponse res = new JwtAuthResponse();
+        res.setToken(token);
+        res.setUser(user);
+        
+        return new ResponseEntity<JwtAuthResponse>(res, HttpStatus.OK);
+    }
+    
+    @PostMapping("/registerUser")
     public ResponseEntity<UserDto> createuser(@RequestBody UserDto ut) {
         UserDto nut = userService.createuser(ut);
         return new ResponseEntity<UserDto>(nut, HttpStatus.CREATED);

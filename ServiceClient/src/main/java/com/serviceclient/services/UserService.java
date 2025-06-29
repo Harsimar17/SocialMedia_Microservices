@@ -2,8 +2,8 @@ package com.serviceclient.services;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.clone.DTOs.UserDto;
 import com.serviceclient.services.constants.Constants;
+import com.socialmediaapp.required.UserDto;
 
 public class UserService 
 {

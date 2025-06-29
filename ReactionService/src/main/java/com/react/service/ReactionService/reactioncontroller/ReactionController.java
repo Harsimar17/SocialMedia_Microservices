@@ -1,5 +1,7 @@
 package com.react.service.ReactionService.reactioncontroller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.clone.DTOs.CommentDto;
-import com.clone.DTOs.LikeDto;
 import com.react.service.ReactionService.reactionservice.ReactionService_IF;
+import com.socialmediaapp.required.CommentDto;
+import com.socialmediaapp.required.LikeDto;
 
 @RestController
 @RequestMapping("/reaction-service")
@@ -31,8 +33,8 @@ public class ReactionController
     }
 
     @GetMapping("/getLikes/{postId}")
-    public ResponseEntity<String> getLikes(@PathVariable("postId") String postId) {
-        return new ResponseEntity<String>(reactionService.getLikesOfPost(postId), HttpStatus.OK);
+    public ResponseEntity< List<LikeDto> > getLikes(@PathVariable("postId") String postId) {
+        return new ResponseEntity< List<LikeDto> >(reactionService.getLikesOfPost(postId), HttpStatus.OK);
     }
 
     @GetMapping("/checkIfPostIsLikedByUser/{postId}/{userId}")

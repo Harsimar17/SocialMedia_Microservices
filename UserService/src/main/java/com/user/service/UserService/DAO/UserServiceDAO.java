@@ -7,8 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import com.clone.DTOs.RoleDto;
-import com.clone.DTOs.UserDto;
+
+import com.socialmediaapp.required.RoleDto;
+import com.socialmediaapp.required.UserDto;
 
 @Repository
 public class UserServiceDAO {

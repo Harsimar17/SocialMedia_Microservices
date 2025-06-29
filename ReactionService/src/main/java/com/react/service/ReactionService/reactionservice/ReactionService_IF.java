@@ -1,7 +1,9 @@
 package com.react.service.ReactionService.reactionservice;
 
-import com.clone.DTOs.CommentDto;
-import com.clone.DTOs.LikeDto;
+import java.util.List;
+
+import com.socialmediaapp.required.CommentDto;
+import com.socialmediaapp.required.LikeDto;
 
 public interface ReactionService_IF {
 	
@@ -9,7 +11,7 @@ public interface ReactionService_IF {
 
     void deleteComment(String cid);
     
-    String getLikesOfPost(String pid);
+    List<LikeDto> getLikesOfPost(String pid);
 
     void addLike(LikeDto l);
     

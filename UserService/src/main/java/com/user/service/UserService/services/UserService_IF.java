@@ -2,7 +2,7 @@ package com.user.service.UserService.services;
 
 import java.util.List;
 
-import com.clone.DTOs.UserDto;
+import com.socialmediaapp.required.UserDto;
 
 public interface UserService_IF {
 	

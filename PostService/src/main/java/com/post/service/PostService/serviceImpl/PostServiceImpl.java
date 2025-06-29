@@ -11,13 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.clone.DTOs.CategoryDto;
-import com.clone.DTOs.CommentDto;
-import com.clone.DTOs.LikeDto;
-import com.clone.DTOs.PostDto;
-import com.clone.DTOs.UserDto;
 import com.post.service.PostService.service.PostService_IF;
+import com.serviceclient.services.ReactionService;
 import com.serviceclient.services.UserService;
+import com.socialmediaapp.required.CategoryDto;
+import com.socialmediaapp.required.CommentDto;
+import com.socialmediaapp.required.LikeDto;
+import com.socialmediaapp.required.PostDto;
+import com.socialmediaapp.required.UserDto;
 
 @Service
 public class PostServiceImpl implements PostService_IF{
@@ -210,9 +211,11 @@ public class PostServiceImpl implements PostService_IF{
 
 	private void mapLikesAndComments(List<PostDto> rawPosts) 
 	{
+		ReactionService reactionService = new ReactionService();
+		
 		for(PostDto postDetails : rawPosts) 
 		{
-			List<LikeDto> likes = jdbcTemplate.query("SELECT * FROM post_likes WHERE pid = ?", new Object[]{postDetails.getPostId()}, (rs, rowNum)->mapLikes(rs, postDetails));
+			List<LikeDto> likes = reactionService.getLikesOfPost(String.valueOf(postDetails.getPostId()));
 			postDetails.setLikes(likes);
 
 			List<CommentDto> comments = jdbcTemplate.query("SELECT * FROM comment WHERE p_id = ?", new Object[]{postDetails.getPostId()}, (rs, rowNum)->mapComments(rs, postDetails));
