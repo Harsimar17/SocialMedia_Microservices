@@ -1,7 +1,0 @@
-rootProject.name = 'AuthenticationService'
-def modules = ["CommonDTO", "ServiceClient"]
-modules.each { dir ->
-	def component = new File("../$dir")
-	 	include "$component.name"
-		project(":$component.name").projectDir = component
-}
