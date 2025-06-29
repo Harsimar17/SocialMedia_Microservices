@@ -22,7 +22,7 @@ ext {
 }
 
 dependencies {
-	implementation project(":CommonDTO")
+	implementation project(":CoreResources")
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.5.3'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.mysql:mysql-connector-j'

@@ -10,10 +10,10 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.gateway.service.Gateway","com.socialmediaapp.required"})
 @EnableDiscoveryClient
-public class AuthenticationServiceApplication {
+public class GatewayServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthenticationServiceApplication.class, args);
+		SpringApplication.run(GatewayServiceApplication.class, args);
 	}
 	
 	@Bean

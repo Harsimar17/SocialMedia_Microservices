@@ -11,14 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.coreresources.required.CategoryDto;
+import com.coreresources.required.CommentDto;
+import com.coreresources.required.LikeDto;
+import com.coreresources.required.PostDto;
+import com.coreresources.required.UserDto;
 import com.post.service.PostService.service.PostService_IF;
 import com.serviceclient.services.ReactionService;
 import com.serviceclient.services.UserService;
-import com.socialmediaapp.required.CategoryDto;
-import com.socialmediaapp.required.CommentDto;
-import com.socialmediaapp.required.LikeDto;
-import com.socialmediaapp.required.PostDto;
-import com.socialmediaapp.required.UserDto;
 
 @Service
 public class PostServiceImpl implements PostService_IF{

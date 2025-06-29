@@ -2,7 +2,7 @@ package com.gateway.service.Gateway.service;
 
 import java.util.*;
 
-import com.socialmediaapp.required.UserDto;
+import com.coreresources.required.UserDto;
 
 public interface Service {
 

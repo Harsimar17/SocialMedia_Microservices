@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.socialmediaapp.required.JwtAuthRequest;
-import com.socialmediaapp.required.JwtAuthResponse;
-import com.socialmediaapp.required.UserDto;
-import com.socialmediaapp.required.JWTThings.JWTTokenHelper;
+import com.coreresources.required.JwtAuthRequest;
+import com.coreresources.required.JwtAuthResponse;
+import com.coreresources.required.UserDto;
+import com.coreresources.required.JWTThings.JWTTokenHelper;
 import com.user.service.UserService.services.UserService_IF;
 
 @CrossOrigin

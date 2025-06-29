@@ -3,8 +3,8 @@ package com.gateway.service.Gateway.security;
 
 import org.springframework.stereotype.Service;
 
+import com.coreresources.required.UserDto;
 import com.gateway.service.Gateway.callmicroservice.UserService;
-import com.socialmediaapp.required.UserDto;
 
 @Service
 public class CustomUserDetailsService {

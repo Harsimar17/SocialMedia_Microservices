@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-	implementation project(":CommonDTO")
+	implementation project(":CoreResources")
 	implementation("org.springframework:spring-web:6.2.8")
 }
 

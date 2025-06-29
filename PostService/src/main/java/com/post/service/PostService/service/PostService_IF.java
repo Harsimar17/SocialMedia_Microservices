@@ -2,7 +2,7 @@ package com.post.service.PostService.service;
 
 import java.util.List;
 
-import com.socialmediaapp.required.PostDto;
+import com.coreresources.required.PostDto;
 
 public interface PostService_IF {
 	PostDto createPost(PostDto pt, int uid, int cid) throws Exception;

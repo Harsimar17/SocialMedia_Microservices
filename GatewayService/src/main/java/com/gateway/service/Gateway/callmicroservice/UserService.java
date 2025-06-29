@@ -1,7 +1,7 @@
 package com.gateway.service.Gateway.callmicroservice;
 
+import com.coreresources.required.UserDto;
 import com.gateway.service.Gateway.service.Service;
-import com.socialmediaapp.required.UserDto;
 
 @org.springframework.stereotype.Service
 public class UserService implements Service{

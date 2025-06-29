@@ -3,8 +3,8 @@ package com.serviceclient.services;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
+import com.coreresources.required.UserDto;
 import com.serviceclient.services.constants.Constants;
-import com.socialmediaapp.required.UserDto;
 
 public class UserService
 {

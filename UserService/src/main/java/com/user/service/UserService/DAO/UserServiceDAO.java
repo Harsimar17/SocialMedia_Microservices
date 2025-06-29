@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.socialmediaapp.required.RoleDto;
-import com.socialmediaapp.required.UserDto;
+import com.coreresources.required.RoleDto;
+import com.coreresources.required.UserDto;
 
 @Repository
 public class UserServiceDAO {

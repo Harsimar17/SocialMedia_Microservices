@@ -2,8 +2,8 @@ package com.react.service.ReactionService.reactionservice;
 
 import java.util.List;
 
-import com.socialmediaapp.required.CommentDto;
-import com.socialmediaapp.required.LikeDto;
+import com.coreresources.required.CommentDto;
+import com.coreresources.required.LikeDto;
 
 public interface ReactionService_IF {
 	

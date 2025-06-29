@@ -6,8 +6,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.coreresources.required.LikeDto;
 import com.serviceclient.services.constants.Constants;
-import com.socialmediaapp.required.LikeDto;
 
 public class ReactionService {
 	

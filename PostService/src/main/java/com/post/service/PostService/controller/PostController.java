@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.coreresources.required.PostDto;
 import com.post.service.PostService.service.PostService_IF;
-import com.socialmediaapp.required.PostDto;
 
 import java.io.File;
 import java.io.FileNotFoundException;

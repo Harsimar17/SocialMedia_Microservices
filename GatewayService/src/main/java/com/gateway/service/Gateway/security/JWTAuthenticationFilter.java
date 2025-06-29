@@ -6,8 +6,8 @@ import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFac
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
-import com.socialmediaapp.required.JWTThings.JWTTokenHelper;
-import com.socialmediaapp.required.JWTThings.RouteValidator;
+import com.coreresources.required.JWTThings.JWTTokenHelper;
+import com.coreresources.required.JWTThings.RouteValidator;
 
 
 @Component

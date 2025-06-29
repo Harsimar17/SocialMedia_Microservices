@@ -1,5 +1,5 @@
 rootProject.name = 'GatewayService'
-def modules = ["CommonDTO", "ServiceClient"]
+def modules = ["CoreResources", "ServiceClient"]
 modules.each { dir ->
 	def component = new File("../$dir")
 	 	include "$component.name"

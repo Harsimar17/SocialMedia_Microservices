@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.coreresources.required.CommentDto;
+import com.coreresources.required.LikeDto;
+import com.coreresources.required.PostDto;
 import com.react.service.ReactionService.reactionservice.ReactionService_IF;
 import com.serviceclient.services.HeaderUtil;
 import com.serviceclient.services.PostService;
-import com.socialmediaapp.required.CommentDto;
-import com.socialmediaapp.required.LikeDto;
-import com.socialmediaapp.required.PostDto;
 
 @Service
 public class ReactionServiceImpl implements ReactionService_IF{

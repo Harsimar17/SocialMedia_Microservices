@@ -3,8 +3,8 @@ package com.serviceclient.services;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
+import com.coreresources.required.PostDto;
 import com.serviceclient.services.constants.Constants;
-import com.socialmediaapp.required.PostDto;
 
 public class PostService{
 

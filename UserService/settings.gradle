@@ -1,5 +1,5 @@
 rootProject.name = 'UserService'
-def modules = ["CommonDTO"]
+def modules = ["CoreResources"]
 modules.each { dir ->
 	def component = new File("../$dir")
 	 	include "$component.name"
