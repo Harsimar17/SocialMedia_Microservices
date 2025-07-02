@@ -21,15 +21,16 @@ public class UserServiceDAO {
 	@Autowired
     private JdbcTemplate jdbcTemplate;
 	
-	 private UserDto mapUser(ResultSet rs) throws SQLException {
-	        UserDto user = new UserDto();
-	        user.setId(rs.getInt("id"));
-	        user.setName(rs.getString("name"));
-	        user.setEmail(rs.getString("email"));
-	        user.setPassword(rs.getString("password"));
-	        user.setAbout(rs.getString("about"));
-	        return user;
-	    }
+	private UserDto mapUser(ResultSet rs) throws SQLException 
+	{
+		UserDto user = new UserDto();
+		user.setId(rs.getInt("id"));
+		user.setName(rs.getString("name"));
+		user.setEmail(rs.getString("email"));
+		user.setPassword(rs.getString("password"));
+		user.setAbout(rs.getString("about"));
+		return user;
+	}
 	
 	public UserDto findByEmail(String email) 
 	{

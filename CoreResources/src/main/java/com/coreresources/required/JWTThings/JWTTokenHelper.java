@@ -7,15 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import javax.crypto.SecretKey;
-
-import com.coreresources.required.UserDto;
-
+import org.springframework.http.HttpHeaders;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class JWTTokenHelper {
 
@@ -75,5 +74,10 @@ public class JWTTokenHelper {
     public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userName);
+    }
+    
+    public static String extractJWTFromReq(HttpServletRequest request) 
+    {
+    	return request.getHeader(HttpHeaders.AUTHORIZATION);
     }
 }

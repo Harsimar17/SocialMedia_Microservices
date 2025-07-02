@@ -23,13 +23,19 @@ import com.serviceclient.services.UserService;
 @Service
 public class PostServiceImpl implements PostService_IF{
 	
+	@Autowired
+	private ReactionService reactionService;
+	
+	@Autowired
+	private UserService userService;
+	
 	private static final String GET_POST_BY_CATEGORY = "SELECT p.*, c.id AS category_id, c.title AS category_title, c.description AS category_description FROM post p JOIN category c ON p.ct_id = c.id WHERE p.ct_id = ?";
 	private static final String GET_POST_BY_USER_ID = "SELECT p.*, c.id AS category_id, c.title AS category_title, c.description AS category_description FROM post p JOIN category c ON p.ct_id = c.id WHERE p.u_id = ?";
 	private static final String CREATE_POST = "INSERT INTO post (title, content, imagename, date, ct_id, u_id) VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String GET_POST_BY_PID = "SELECT p.*, c.id AS category_id, c.title AS category_title, c.description AS category_description FROM post p JOIN category c ON p.ct_id = c.id WHERE p.id = ?";
 	private static final String GET_ALL_POST = "SELECT p.*, c.id AS category_id, c.title AS category_title, c.description AS category_description FROM post p JOIN category c ON p.ct_id = c.id";
 
-	private PostDto mapPost(ResultSet rs) throws SQLException {
+	private PostDto mapPost(ResultSet rs, String jwtToken) throws SQLException {
 		PostDto post = new PostDto();
 		post.setPostId(rs.getInt("id"));
 		post.setTitle(rs.getString("title"));
@@ -46,8 +52,7 @@ public class PostServiceImpl implements PostService_IF{
 		UserDto user = new UserDto();
 		user.setId(rs.getInt("u_id")); // FIXED this line
 
-		UserService userService = new UserService();
-		user = userService.getUserByUserId(String.valueOf(user.getId()));
+		user = userService.getUserByUserId(String.valueOf(user.getId()), jwtToken);
 
 		post.setUser(user);
 
@@ -116,11 +121,11 @@ public class PostServiceImpl implements PostService_IF{
 
 	
 	@Override
-	public PostDto updatePost(PostDto newPost, int postId) 
+	public PostDto updatePost(PostDto newPost, int postId, String jwtToken) 
 	{
 		StringBuilder sql = new StringBuilder("UPDATE post SET ");
 		
-		PostDto existingPostFromDb = this.getPost(postId);
+		PostDto existingPostFromDb = this.getPost(postId, jwtToken);
 		try 
 		{
 			List<Object> params = new ArrayList<>();
@@ -182,7 +187,7 @@ public class PostServiceImpl implements PostService_IF{
 				
 				if (updatedRecords > 0) 
 				{
-					return this.getPost(postId);
+					return this.getPost(postId, jwtToken);
 				}
 			}
 		}
@@ -209,13 +214,11 @@ public class PostServiceImpl implements PostService_IF{
 		}
 	}
 
-	private void mapLikesAndComments(List<PostDto> rawPosts) 
+	private void mapLikesAndComments(List<PostDto> rawPosts, String jwtToken) 
 	{
-		ReactionService reactionService = new ReactionService();
-		
 		for(PostDto postDetails : rawPosts) 
 		{
-			List<LikeDto> likes = reactionService.getLikesOfPost(String.valueOf(postDetails.getPostId()));
+			List<LikeDto> likes = reactionService.getLikesOfPost(String.valueOf(postDetails.getPostId()), jwtToken);
 			postDetails.setLikes(likes);
 
 			List<CommentDto> comments = jdbcTemplate.query("SELECT * FROM comment WHERE p_id = ?", new Object[]{postDetails.getPostId()}, (rs, rowNum)->mapComments(rs, postDetails));
@@ -224,15 +227,15 @@ public class PostServiceImpl implements PostService_IF{
 	}
 	
 	@Override
-	public PostDto getPost(int id) 
+	public PostDto getPost(int id, String jwtToken) 
 	{
 		List<PostDto> postById = new ArrayList<>();
 		
 		try 
 		{
-			postById = jdbcTemplate.query(GET_POST_BY_PID, new Object[] { id }, (rs, rowNum) -> mapPost(rs));
+			postById = jdbcTemplate.query(GET_POST_BY_PID, new Object[] { id }, (rs, rowNum) -> mapPost(rs, jwtToken));
 			
-			mapLikesAndComments(postById);
+			mapLikesAndComments(postById, jwtToken);
 		}
 		catch (Exception e)
 		{
@@ -248,15 +251,15 @@ public class PostServiceImpl implements PostService_IF{
 	}
 
 	@Override
-	public List<PostDto> getAllPost() 
+	public List<PostDto> getAllPost(String jwtToken) 
 	{
 		List<PostDto> allPosts  = new ArrayList<>();
 		
 		try 
 		{
-			allPosts = jdbcTemplate.query(GET_ALL_POST, (rs, rowNum) -> mapPost(rs));
+			allPosts = jdbcTemplate.query(GET_ALL_POST, (rs, rowNum) -> mapPost(rs, jwtToken));
 
-			mapLikesAndComments(allPosts);
+			mapLikesAndComments(allPosts, jwtToken);
 		}
 		catch (Exception e) 
 		{
@@ -267,15 +270,15 @@ public class PostServiceImpl implements PostService_IF{
 	}
 
 	@Override
-	public List<PostDto> getPostByCategory(int categoryId) 
+	public List<PostDto> getPostByCategory(int categoryId, String jwtToken) 
 	{
 		List<PostDto> allPostsByCategory = new ArrayList<>();
 
 		try
 		{
-			allPostsByCategory = jdbcTemplate.query(GET_POST_BY_CATEGORY, (rs, rowNum) -> mapPost(rs));
+			allPostsByCategory = jdbcTemplate.query(GET_POST_BY_CATEGORY, (rs, rowNum) -> mapPost(rs, jwtToken));
 
-			mapLikesAndComments(allPostsByCategory);
+			mapLikesAndComments(allPostsByCategory, jwtToken);
 		}
 
 		catch (Exception e) 
@@ -287,15 +290,15 @@ public class PostServiceImpl implements PostService_IF{
 	}
 
 	@Override
-	public List<PostDto> getAllPostByUser(int userId)
+	public List<PostDto> getAllPostByUser(int userId, String jwtToken)
 	{
 		List<PostDto> allPosts = new ArrayList<>();
 		
 		try 
 		{
-			allPosts = jdbcTemplate.query(GET_POST_BY_USER_ID, new Object[] { userId }, (rs, rowNum) -> mapPost(rs));
+			allPosts = jdbcTemplate.query(GET_POST_BY_USER_ID, new Object[] { userId }, (rs, rowNum) -> mapPost(rs, jwtToken));
 			
-			mapLikesAndComments(allPosts);
+			mapLikesAndComments(allPosts, jwtToken);
 		}
 		catch (Exception e) 
 		{

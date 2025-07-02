@@ -18,9 +18,12 @@ public class ReactionServiceImpl implements ReactionService_IF{
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private PostService postService;
 
 	@Override
-	public CommentDto createComment(CommentDto commentDetails, String pid, String uid) {
+	public CommentDto createComment(CommentDto commentDetails, String pid, String uid,  String jwtToken) {
 		
 		try
 		{
@@ -57,7 +60,7 @@ public class ReactionServiceImpl implements ReactionService_IF{
 	}
 
 	@Override
-	public List<LikeDto> getLikesOfPost(String postId) 
+	public List<LikeDto> getLikesOfPost(String postId,  String jwtToken) 
 	{
 		List<LikeDto> likesOfPost = null;
 		
@@ -86,14 +89,13 @@ public class ReactionServiceImpl implements ReactionService_IF{
 	}
 	
 	@Override
-	public boolean isLiked(String userId, String postId) 
+	public boolean isLiked(String userId, String postId, String jwtToken) 
 	{
 		try 
 		{
 			boolean isLiked = false;
 			
-			PostService postService = new PostService();
-			PostDto post = postService.getPostByPostId(postId);
+			PostDto post = postService.getPostByPostId(postId, jwtToken);
 			
 			List<LikeDto> allLikesOfPost = post.getLikes();
 			
@@ -114,14 +116,14 @@ public class ReactionServiceImpl implements ReactionService_IF{
 	}
 
 	@Override
-	public void addLike(LikeDto likeDetails) {
+	public void addLike(LikeDto likeDetails,  String jwtToken) {
 
 		try 
 		{
 			String userAssociatedWithLike = likeDetails.getUserAssociatedWithLike();
 			String postAssociatedWithLike = likeDetails.getPostAssociatedWithLike();
 			
-			if(!isLiked(userAssociatedWithLike,postAssociatedWithLike))
+			if(!isLiked(userAssociatedWithLike,postAssociatedWithLike, jwtToken))
 			{
 		        String insertSql = "INSERT INTO post_likes (uid, pid) VALUES (?, ?)";
 		        jdbcTemplate.update(insertSql, likeDetails.getUserAssociatedWithLike(), likeDetails.getPostAssociatedWithLike());

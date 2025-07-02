@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.gateway.service.Gateway","com.socialmediaapp.required"})
+@ComponentScan(basePackages = {"com.gateway.service.Gateway","com.coreresources.required","com.serviceclient.services"})
 @EnableDiscoveryClient
 public class GatewayServiceApplication {
 

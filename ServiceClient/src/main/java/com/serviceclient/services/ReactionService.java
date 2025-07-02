@@ -4,14 +4,15 @@ import java.util.List;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.coreresources.required.LikeDto;
 import com.serviceclient.services.constants.Constants;
-
+@Component
 public class ReactionService {
 	
-	public List<LikeDto> getLikesOfPost(String postId) 
+	public List<LikeDto> getLikesOfPost(String postId, String jwtToken) 
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -22,7 +23,7 @@ public class ReactionService {
 			 ResponseEntity<List<LikeDto>> response = restTemplate.exchange(
 			            url,
 			            HttpMethod.GET,
-			            HeaderUtil.getHeaders(),
+			            HeaderUtil.getHeaders(jwtToken),
 			            new ParameterizedTypeReference<List<LikeDto>>() {}
 			        );
 

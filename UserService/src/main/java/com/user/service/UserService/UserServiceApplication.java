@@ -16,7 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan(basePackages = {"com.user.service.UserService", "com.socialmediaapp.required"})
+@ComponentScan(basePackages = {"com.user.service.UserService", "com.coreresources.required","com.serviceclient.services"})
 public class UserServiceApplication {
 
 	public static void main(String[] args) {

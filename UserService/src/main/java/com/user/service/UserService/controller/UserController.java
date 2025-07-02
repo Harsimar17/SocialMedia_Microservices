@@ -32,12 +32,22 @@ public class UserController
     @PostMapping("/generateToken")
     public ResponseEntity<JwtAuthResponse> createToken(@RequestBody JwtAuthRequest jwtAuthRequest) throws Exception 
     {
-    	userService.authenticate(jwtAuthRequest.getUsername(), jwtAuthRequest.getPassword());
+    	UserDto userObj = userService.getUserByEmailAndPassword(jwtAuthRequest.getUsername(), jwtAuthRequest.getPassword());
+    	
+    	JwtAuthResponse res = new JwtAuthResponse();
+
+    	if(userObj == null) 
+    	{
+    		res.setMessage(" In correct username or password sent.");
+    		res.setStatusCode("500");
+    		
+    		return new ResponseEntity<JwtAuthResponse>(res, HttpStatus.OK);
+    	}
+    	
     	JWTTokenHelper tokenHelper = new JWTTokenHelper();
         UserDto user = userService.getUserByEmail(jwtAuthRequest.getUsername());
         String token = tokenHelper.generateToken(user.getEmail());
         
-        JwtAuthResponse res = new JwtAuthResponse();
         res.setToken(token);
         res.setUser(user);
         

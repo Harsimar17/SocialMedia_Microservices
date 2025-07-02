@@ -1,14 +1,15 @@
 package com.serviceclient.services;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.coreresources.required.UserDto;
 import com.serviceclient.services.constants.Constants;
-
+@Component
 public class UserService
 {
-	public UserDto getUserByEmail(String email) 
+	public UserDto getUserByEmail(String email, String jwtToken) 
 	{
 		RestTemplate restTemplate = new RestTemplate();
 	
@@ -16,7 +17,7 @@ public class UserService
 		{
 			String url = Constants.BASE_URL_FOR_USER_SERVICE + "getByEmail/" + email;
 			
-			return restTemplate.exchange(url, HttpMethod.GET, HeaderUtil.getHeaders(), UserDto.class).getBody();
+			return restTemplate.exchange(url, HttpMethod.GET, HeaderUtil.getHeaders(jwtToken), UserDto.class).getBody();
 		}
 		catch (Exception e)
 		{
@@ -24,41 +25,18 @@ public class UserService
 		}
 	}
 	
-	public UserDto getUserByUserId(String userId) 
+	public UserDto getUserByUserId(String userId, String jwtToken) 
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		try 
 		{
 			String url = Constants.BASE_URL_FOR_USER_SERVICE + "getUserById/" + userId;
 
-			return restTemplate.exchange(url, HttpMethod.GET, HeaderUtil.getHeaders(), UserDto.class).getBody();
+			return restTemplate.exchange(url, HttpMethod.GET, HeaderUtil.getHeaders(jwtToken), UserDto.class).getBody();
 		}
 		catch (Exception e)
 		{
 			throw e;
 		}
-	}
-	
-	
-	public UserDto authenticate(String username, String password) throws Exception {
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		UserDto userDto = null;
-		
-		try 
-		{
-			String url = Constants.BASE_URL_FOR_USER_SERVICE + "getByEmailAndPassword/" + username + "/" + password;
-
-			userDto =  restTemplate.exchange(url, HttpMethod.GET, HeaderUtil.getHeaders(),UserDto.class).getBody();
-		}
-		catch (Exception e)
-		{
-			throw e;
-		}
-		
-		if( userDto == null) throw new Exception("User is not present");
-		
-		return userDto;
 	}
 }

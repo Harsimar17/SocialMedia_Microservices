@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.react.service.ReactionService", "com.socialmediaapp.required"})
+@ComponentScan(basePackages = {"com.react.service.ReactionService", "com.coreresources.required","com.serviceclient.services"})
 public class ReactionServiceApplication {
 
 	public static void main(String[] args) {

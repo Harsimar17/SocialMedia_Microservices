@@ -19,9 +19,9 @@ spring:
 
 
        - id: ReactionService
-         uri: lb://REACTION-SERVICE
+         uri: http://localhost:7073
          predicates:
-           - Path=/reaction-service/*
+           - Path=/reaction-service/**
          filters:
            - JWTAuthenticationFilter
  application:

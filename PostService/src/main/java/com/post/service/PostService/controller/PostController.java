@@ -2,6 +2,7 @@ package com.post.service.PostService.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.coreresources.required.PostDto;
+import com.coreresources.required.JWTThings.JWTTokenHelper;
 import com.post.service.PostService.service.PostService_IF;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,28 +45,28 @@ public class PostController {
     }
 
     @GetMapping("/getUserPosts/{userId}")
-    public ResponseEntity<List<PostDto>> getPostByUser(@PathVariable("userId") int userId) {
-        return new ResponseEntity<List<PostDto>>(postService.getAllPostByUser(userId), HttpStatus.OK);
+    public ResponseEntity<List<PostDto>> getPostByUser(@PathVariable("userId") int userId, HttpServletRequest request) {
+        return new ResponseEntity<List<PostDto>>(postService.getAllPostByUser(userId, JWTTokenHelper.extractJWTFromReq(request)), HttpStatus.OK);
     }
 
     @GetMapping("/getPostByCategory/{cid}")
-    public ResponseEntity<List<PostDto>> getPostByCategory(@PathVariable int cid) {
-        return new ResponseEntity<List<PostDto>>(postService.getPostByCategory(cid), HttpStatus.OK);
+    public ResponseEntity<List<PostDto>> getPostByCategory(@PathVariable int cid, HttpServletRequest request) {
+        return new ResponseEntity<List<PostDto>>(postService.getPostByCategory(cid, JWTTokenHelper.extractJWTFromReq(request)), HttpStatus.OK);
     }
 
     @GetMapping("/getAllPosts")
-    public ResponseEntity<List<PostDto>> getAllPost() {
-        return new ResponseEntity<List<PostDto>>(postService.getAllPost(), HttpStatus.OK);
+    public ResponseEntity<List<PostDto>> getAllPost( HttpServletRequest request) {
+        return new ResponseEntity<List<PostDto>>(postService.getAllPost(JWTTokenHelper.extractJWTFromReq(request)), HttpStatus.OK);
     }
 
     @GetMapping("/getSpecificPost/{pid}")
-    public ResponseEntity<PostDto> getPostbyId(@PathVariable("pid") int pid) {
-        return new ResponseEntity<PostDto>(postService.getPost(pid), HttpStatus.OK);
+    public ResponseEntity<PostDto> getPostbyId(@PathVariable("pid") int pid, HttpServletRequest request) {
+        return new ResponseEntity<PostDto>(postService.getPost(pid, JWTTokenHelper.extractJWTFromReq(request)), HttpStatus.OK);
     }
 
     @PutMapping("/updatePost/{pid}")
-    public ResponseEntity<PostDto> updatePostById(@RequestBody PostDto pd, @PathVariable("pid") int pid) {
-        return new ResponseEntity<PostDto>( postService.updatePost(pd, pid), HttpStatus.OK);
+    public ResponseEntity<PostDto> updatePostById(@RequestBody PostDto pd, @PathVariable("pid") int pid, HttpServletRequest request) {
+        return new ResponseEntity<PostDto>( postService.updatePost(pd, pid, JWTTokenHelper.extractJWTFromReq(request)), HttpStatus.OK);
     }
 
     @DeleteMapping("/deletePost/{pid}")
